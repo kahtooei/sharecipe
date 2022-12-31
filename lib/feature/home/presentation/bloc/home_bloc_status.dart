@@ -15,7 +15,7 @@ class HomeLoadingMoreStatus extends HomeBlocStatus {
   List<Object?> get props => [];
 }
 
-class HomeErrorStatus extends Equatable {
+class HomeErrorStatus extends HomeBlocStatus {
   final String error;
   HomeErrorStatus(this.error);
   @override
@@ -28,5 +28,5 @@ class HomeCompletedStatus extends HomeBlocStatus {
   HomeCompletedStatus(this.recipes);
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [recipes];
 }

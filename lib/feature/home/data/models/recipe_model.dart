@@ -22,6 +22,6 @@ class RecipeModel extends RecipeEntity {
         title: json['title'],
         description: json['description'],
         cover: json['cover'],
-        likeCount: json['likerCount']);
+        likeCount: json['likeCount']);
   }
 }

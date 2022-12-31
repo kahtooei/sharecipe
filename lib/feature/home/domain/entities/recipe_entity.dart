@@ -11,6 +11,5 @@ class RecipeEntity extends Equatable {
       {this.id, this.title, this.description, this.cover, this.likeCount});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id];
 }

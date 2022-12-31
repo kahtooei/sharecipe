@@ -3,7 +3,7 @@ import 'package:sharecipe/core/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeRemoteAPI {
-  var _url = Uri.parse(Constants.URL);
+  final _url = Uri.parse("${Constants.URL}/getHome");
 
   Future<dynamic> getHomeRecipes(int lastID) async {
     final prefs = await SharedPreferences.getInstance();
@@ -15,7 +15,6 @@ class HomeRemoteAPI {
       "token": token.toString(),
       "lastID": lastID.toString()
     });
-
     return response;
   }
 }
