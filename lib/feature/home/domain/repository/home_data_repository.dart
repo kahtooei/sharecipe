@@ -3,5 +3,5 @@ import 'package:sharecipe/feature/home/data/data_source/remote/home_remote_api.d
 import 'package:sharecipe/feature/home/domain/entities/recipe_entity.dart';
 
 abstract class HomeDataRepository {
-  Future<RequestStatus<List<RecipeEntity>>> getRecipes();
+  Future<RequestStatus<List<RecipeEntity>>> getRecipes(int lastID);
 }

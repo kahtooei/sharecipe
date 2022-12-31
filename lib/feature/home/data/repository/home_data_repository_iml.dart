@@ -7,9 +7,10 @@ import '../data_source/remote/home_remote_api.dart';
 class HomeDataRepositoryImplementation extends HomeDataRepository {
   final HomeRemoteAPI homeAPI;
   HomeDataRepositoryImplementation(this.homeAPI);
+
   @override
-  Future<RequestStatus<List<RecipeEntity>>> getRecipes() async {
-    var response = await homeAPI.getHomeRecipes();
+  Future<RequestStatus<List<RecipeEntity>>> getRecipes(int lastID) async {
+    var response = await homeAPI.getHomeRecipes(lastID);
     if (response['status'] == 200) {
       List<RecipeEntity> recipeList = [];
       List data = response['recipeList'];
