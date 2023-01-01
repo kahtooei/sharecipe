@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:sharecipe/core/utils/constants.dart';
 import 'package:sharecipe/feature/home/presentation/screens/home_screen.dart';
 import 'package:sharecipe/feature/new/presentation/screens/new_screen.dart';
 import 'package:sharecipe/feature/profile/presentation/screens/profile_screen.dart';
@@ -30,7 +31,7 @@ class _MainScreenState extends State<MainScreen>
       bottomNavigationBar: ConvexAppBar(
         controller: tabController,
         color: Colors.white,
-        backgroundColor: Colors.black87,
+        backgroundColor: Constants.MAIN_COLOR,
         items: const [
           TabItem(icon: Icons.home, title: 'Home'),
           TabItem(icon: Icons.trending_up, title: 'Trends'),
@@ -41,6 +42,7 @@ class _MainScreenState extends State<MainScreen>
         onTap: (int i) => controller.jumpToPage(i),
       ),
       body: Container(
+        decoration: BoxDecoration(color: Constants.BACKGROUND_COLOR),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: SafeArea(

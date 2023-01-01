@@ -23,6 +23,12 @@ class HomeErrorStatus extends HomeBlocStatus {
   List<Object?> get props => [error];
 }
 
+class HomeErrorMoreStatus extends HomeBlocStatus {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
 class HomeCompletedStatus extends HomeBlocStatus {
   final List<RecipeEntity> recipes;
   HomeCompletedStatus(this.recipes);

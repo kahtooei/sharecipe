@@ -1,10 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sharecipe/core/utils/constants.dart';
 import 'package:sharecipe/feature/home/domain/entities/recipe_entity.dart';
 import 'package:sharecipe/feature/home/presentation/bloc/home_bloc_bloc.dart';
 import 'package:sharecipe/feature/home/presentation/bloc/home_bloc_status.dart';
+import 'package:sharecipe/feature/home/presentation/widgets/error_view.dart';
+import 'package:sharecipe/feature/home/presentation/widgets/home_appBar.dart';
+import 'package:sharecipe/feature/home/presentation/widgets/loading_view.dart';
+import 'package:sharecipe/feature/home/presentation/widgets/recipe_list_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Widget> recipesList = [];
   @override
   void initState() {
     super.initState();
@@ -24,25 +31,35 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text("Start =="),
+        const HomeAppBar(),
         const SizedBox(
-          height: 20,
+          height: 5,
         ),
-        BlocConsumer<HomeBlocBloc, HomeBlocState>(
-          builder: (context, state) {
-            return const Text("Bloc Builder");
-          },
-          listener: (context, state) {
-            if (state.status is HomeCompletedStatus) {
-              HomeCompletedStatus h = state.status as HomeCompletedStatus;
-              for (RecipeEntity r in h.recipes) {
-                print("ID Is : ${r.id}");
-                print("Title Is : ${r.title}");
-                print("Description Is : ${r.description}");
+        Expanded(
+          child: BlocConsumer<HomeBlocBloc, HomeBlocState>(
+            builder: (context, state) {
+              switch (state.status.runtimeType) {
+                case HomeCompletedStatus:
+                  for (RecipeEntity r
+                      in (state.status as HomeCompletedStatus).recipes) {
+                    recipesList.add(RecipeListItem(recipe: r));
+                  }
+                  return ListView.builder(
+                    itemCount: recipesList.length,
+                    itemBuilder: (context, index) {
+                      return recipesList[index];
+                    },
+                  );
+                case HomeLoadingStatus:
+                  return const LoadingView();
+                case HomeErrorStatus:
+                  return const ErrorView();
+                default:
+                  return Container();
               }
-            }
-            print("bloc listener ==> ${state.status}");
-          },
+            },
+            listener: (context, state) {},
+          ),
         ),
       ],
     );
