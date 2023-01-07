@@ -4,6 +4,7 @@ import 'package:sharecipe/feature/home/data/repository/home_data_repository_iml.
 import 'package:sharecipe/feature/home/domain/repository/home_data_repository.dart';
 import 'package:sharecipe/feature/home/domain/usecase/get_home_data_usecase.dart';
 import 'package:sharecipe/feature/home/presentation/bloc/home_bloc_bloc.dart';
+import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -20,4 +21,5 @@ setUp() {
 
   //bloc
   getIt.registerSingleton<HomeBlocBloc>(HomeBlocBloc(getIt()));
+  getIt.registerSingleton(NewBlocBloc());
 }
