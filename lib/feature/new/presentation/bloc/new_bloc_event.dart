@@ -7,22 +7,32 @@ abstract class NewBlocEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class updateTitle extends NewBlocEvent {
+class updateTitleEvent extends NewBlocEvent {
   final String title;
-  updateTitle(this.title);
+  updateTitleEvent(this.title);
 }
 
-class updateDescription extends NewBlocEvent {
+class updateDescriptionEvent extends NewBlocEvent {
   final String description;
-  updateDescription(this.description);
+  updateDescriptionEvent(this.description);
 }
 
-class updateSelectedImg extends NewBlocEvent {
+class updateSelectedImgEvent extends NewBlocEvent {
   final String path;
-  updateSelectedImg(this.path);
+  updateSelectedImgEvent(this.path);
 }
 
-class getIngredientCategory extends NewBlocEvent {
+class getIngredientCategoryEvent extends NewBlocEvent {
   final int categoryID;
-  getIngredientCategory({required this.categoryID});
+  getIngredientCategoryEvent({required this.categoryID});
+}
+
+class addToSelectedIngredientEvent extends NewBlocEvent {
+  final IngredientEntity ingredient;
+  addToSelectedIngredientEvent({required this.ingredient});
+}
+
+class removeFromSelectedIngredientEvent extends NewBlocEvent {
+  final IngredientEntity ingredient;
+  removeFromSelectedIngredientEvent({required this.ingredient});
 }

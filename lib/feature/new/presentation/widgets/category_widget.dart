@@ -26,8 +26,7 @@ class CategoryWidget extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: ((context) => AddIngredientsPage(
-                          categoryID: category.id,
-                          categoryName: category.name,
+                          category: category,
                         ))));
           },
           child: Column(

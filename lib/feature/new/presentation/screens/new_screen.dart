@@ -22,7 +22,8 @@ class NewScreen extends StatelessWidget {
             height: 70,
             child: TextField(
               onChanged: (txt) {
-                BlocProvider.of<NewBlocBloc>(context).add(updateTitle(txt));
+                BlocProvider.of<NewBlocBloc>(context)
+                    .add(updateTitleEvent(txt));
               },
               decoration: const InputDecoration(
                 hintStyle: TextStyle(fontSize: 16, color: Colors.grey),
@@ -42,7 +43,7 @@ class NewScreen extends StatelessWidget {
               maxLines: 6,
               onChanged: (txt) {
                 BlocProvider.of<NewBlocBloc>(context)
-                    .add(updateDescription(txt));
+                    .add(updateDescriptionEvent(txt));
               },
               decoration: const InputDecoration(
                 hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
@@ -79,7 +80,7 @@ class NewScreen extends StatelessWidget {
                       String path = result.files.single.path!;
                       // String extentin = result.files.single.extension!;
                       BlocProvider.of<NewBlocBloc>(context)
-                          .add(updateSelectedImg(path));
+                          .add(updateSelectedImgEvent(path));
                     }
                   },
                   child: BlocBuilder<NewBlocBloc, NewBlocState>(

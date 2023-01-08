@@ -8,4 +8,8 @@ abstract class IngredientEntity extends Equatable {
   int? category;
   IngredientEntity(
       {this.id, this.name, this.description, this.cover, this.category});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, name, description, cover, category];
 }

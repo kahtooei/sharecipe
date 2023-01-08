@@ -22,7 +22,7 @@ void main() async {
   runApp(MultiBlocProvider(
       providers: [
         BlocProvider<HomeBlocBloc>(create: (_) => getIt<HomeBlocBloc>()),
-        BlocProvider<NewBlocBloc>(create: (context) => NewBlocBloc()),
+        BlocProvider<NewBlocBloc>(create: (_) => getIt<NewBlocBloc>()),
       ],
       child: MaterialApp(
         title: 'Sharecipe',
