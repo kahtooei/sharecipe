@@ -36,3 +36,8 @@ class removeFromSelectedIngredientEvent extends NewBlocEvent {
   final IngredientEntity ingredient;
   removeFromSelectedIngredientEvent({required this.ingredient});
 }
+
+class searchIngredientEvent extends NewBlocEvent {
+  final String searchText;
+  searchIngredientEvent({required this.searchText});
+}

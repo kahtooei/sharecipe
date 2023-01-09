@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/params/category_params.dart';
 import 'package:sharecipe/core/utils/constants.dart';
-import 'package:sharecipe/feature/new/presentation/widgets/category_widget.dart';
+import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
+import 'package:sharecipe/feature/new/presentation/pages/category_page/category_widget.dart';
+import 'package:sharecipe/feature/new/presentation/pages/steps_page/steps_recipe_page.dart';
+import 'package:sharecipe/feature/new/presentation/widgets/ingredient_badge.dart';
 
 class CategoryIngredients extends StatelessWidget {
   const CategoryIngredients({super.key});
@@ -13,10 +17,33 @@ class CategoryIngredients extends StatelessWidget {
         backgroundColor: Constants.MAIN_COLOR,
         title: const Text("Ingredients Category"),
         actions: [
-          // show ingredient count
-          IconButton(
-            icon: const Icon(Icons.sports_basketball),
-            onPressed: () {},
+          const Padding(
+            padding: EdgeInsets.only(right: 2),
+            child: IngredientBadge(),
+          ),
+          BlocBuilder<NewBlocBloc, NewBlocState>(
+            builder: (context, state) {
+              return Visibility(
+                visible: state.selectedIngredients.isNotEmpty,
+                replacement: const Icon(
+                  Icons.not_interested,
+                  color: Colors.white,
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StepsRecipePage(),
+                        ));
+                  },
+                  icon: const Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  ),
+                ),
+              );
+            },
           )
         ],
       ),

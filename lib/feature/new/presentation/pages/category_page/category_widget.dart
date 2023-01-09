@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/params/category_params.dart';
 import 'package:sharecipe/core/utils/constants.dart';
-import 'package:sharecipe/feature/new/presentation/pages/add_ingredient_page.dart';
+import 'package:sharecipe/feature/new/presentation/pages/ingredients_page/add_ingredient_page.dart';
 
 class CategoryWidget extends StatelessWidget {
   final CategoryParams category;

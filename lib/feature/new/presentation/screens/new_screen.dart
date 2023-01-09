@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/utils/constants.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
-import 'package:sharecipe/feature/new/presentation/widgets/new_appBar.dart';
+import 'package:sharecipe/feature/new/presentation/screens/new_appBar.dart';
 
 class NewScreen extends StatelessWidget {
   const NewScreen({super.key});

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/utils/constants.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
-import 'package:sharecipe/feature/new/presentation/pages/category_ingredients.dart';
+import 'package:sharecipe/feature/new/presentation/pages/category_page/category_ingredients.dart';
 
-class AddIngredientAppBar extends StatelessWidget {
-  const AddIngredientAppBar({super.key});
+class NewAppBar extends StatelessWidget {
+  const NewAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class AddIngredientAppBar extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           const Text(
-            "Add Material",
+            "New Recipe",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
           ),
@@ -37,7 +37,13 @@ class AddIngredientAppBar extends StatelessWidget {
                         color: Colors.white,
                       )),
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const CategoryIngredients()));
+                      },
                       icon: const Icon(
                         Icons.check,
                         color: Colors.white,
@@ -48,10 +54,10 @@ class AddIngredientAppBar extends StatelessWidget {
               left: 10,
               child: IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                   },
                   icon: const Icon(
-                    Icons.arrow_back,
+                    Icons.close,
                     color: Colors.white,
                   ))),
         ],
