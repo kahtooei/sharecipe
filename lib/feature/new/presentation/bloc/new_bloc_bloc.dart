@@ -2,7 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sharecipe/core/resources/request_status.dart';
 import 'package:sharecipe/feature/new/domain/entities/ingredient_entity.dart';
+import 'package:sharecipe/feature/new/domain/entities/process_function_entity.dart';
+import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
 import 'package:sharecipe/feature/new/domain/usecase/get_ingredient_usecase.dart';
+import 'package:sharecipe/feature/new/domain/usecase/get_process_functions_usecase.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_status.dart';
 
 part 'new_bloc_event.dart';
@@ -10,14 +13,17 @@ part 'new_bloc_state.dart';
 
 class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
   GetIngredientsUseCase getIngredients;
-  NewBlocBloc(this.getIngredients)
+  GetProcessFunctionsUseCase getProcessFunctions;
+  NewBlocBloc(this.getIngredients, this.getProcessFunctions)
       : super(NewBlocState(
             selectedImgPath: '',
             title: '',
             description: '',
             searchText: "",
             selectedIngredients: [],
-            ingredientStatus: LoadingIngredientListStatus())) {
+            ingredientStatus: LoadingIngredientListStatus(),
+            functionsStatus: LoadingFunctionsStatus(),
+            steps: [])) {
     on<NewBlocEvent>((event, emit) async {
       switch (event.runtimeType) {
         case updateTitleEvent:
@@ -62,6 +68,31 @@ class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
         case searchIngredientEvent:
           emit(state.copyWith(
               search_text: (event as searchIngredientEvent).searchText));
+          break;
+        case getFunctionsEvent:
+          emit(state.copyWith(function_status: LoadingFunctionsStatus()));
+          RequestStatus<List<ProcessFunctionEntity>> requestStatus =
+              await getProcessFunctions();
+          if (requestStatus is SuccessRequest) {
+            emit(state.copyWith(
+                function_status:
+                    CompleteFunctionsStatus(requestStatus.response!)));
+          } else {
+            emit(state.copyWith(
+                function_status: ErrorFunctionsStatus(requestStatus.error!)));
+          }
+          break;
+        case addNewStepEvent:
+          //add logics
+          break;
+        case removeStepEvent:
+          //add logics
+          break;
+        case editStepEvent:
+          //add logics
+          break;
+        case reorderStepEvent:
+          //add logics
           break;
       }
     });

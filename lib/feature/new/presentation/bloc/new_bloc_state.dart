@@ -5,15 +5,19 @@ class NewBlocState extends Equatable {
   final String title;
   final String description;
   final String searchText;
-  final IngredientBlocStatus ingredientStatus;
+  final NewBlocStatus ingredientStatus;
   final List<IngredientEntity> selectedIngredients;
+  final NewBlocStatus functionsStatus;
+  final List<RecipeStepEntity> steps;
   const NewBlocState(
       {required this.selectedImgPath,
       required this.title,
       required this.description,
       required this.searchText,
       required this.selectedIngredients,
-      required this.ingredientStatus});
+      required this.ingredientStatus,
+      required this.functionsStatus,
+      required this.steps});
 
   NewBlocState copyWith(
       {String? newImgPath,
@@ -21,14 +25,18 @@ class NewBlocState extends Equatable {
       String? newDescription,
       String? search_text,
       List<IngredientEntity>? selected_ingredients,
-      IngredientBlocStatus? ingredient_status}) {
+      NewBlocStatus? ingredient_status,
+      NewBlocStatus? function_status,
+      List<RecipeStepEntity>? new_steps}) {
     return NewBlocState(
         selectedImgPath: newImgPath ?? selectedImgPath,
         title: newTitle ?? title,
         description: newDescription ?? description,
         searchText: search_text ?? searchText,
         selectedIngredients: selected_ingredients ?? selectedIngredients,
-        ingredientStatus: ingredient_status ?? ingredientStatus);
+        ingredientStatus: ingredient_status ?? ingredientStatus,
+        functionsStatus: function_status ?? functionsStatus,
+        steps: new_steps ?? steps);
   }
 
   @override
@@ -39,6 +47,8 @@ class NewBlocState extends Equatable {
         description,
         selectedIngredients,
         ingredientStatus,
-        searchText
+        searchText,
+        functionsStatus,
+        steps
       ];
 }

@@ -41,3 +41,26 @@ class searchIngredientEvent extends NewBlocEvent {
   final String searchText;
   searchIngredientEvent({required this.searchText});
 }
+
+class getFunctionsEvent extends NewBlocEvent {}
+
+class addNewStepEvent extends NewBlocEvent {
+  final RecipeStepEntity step;
+  addNewStepEvent(this.step);
+}
+
+class removeStepEvent extends NewBlocEvent {
+  final RecipeStepEntity step;
+  removeStepEvent(this.step);
+}
+
+class editStepEvent extends NewBlocEvent {
+  final RecipeStepEntity step;
+  editStepEvent(this.step);
+}
+
+class reorderStepEvent extends NewBlocEvent {
+  final RecipeStepEntity step;
+  final bool isUp;
+  reorderStepEvent(this.step, this.isUp);
+}

@@ -5,9 +5,13 @@ import 'package:sharecipe/feature/home/domain/repository/home_data_repository.da
 import 'package:sharecipe/feature/home/domain/usecase/get_home_data_usecase.dart';
 import 'package:sharecipe/feature/home/presentation/bloc/home_bloc_bloc.dart';
 import 'package:sharecipe/feature/new/data/data_source/remote/ingredient_list_remote.dart';
+import 'package:sharecipe/feature/new/data/data_source/remote/process_functions_list_remote.dart';
 import 'package:sharecipe/feature/new/data/repository/ingredient_data_repository_iml.dart';
+import 'package:sharecipe/feature/new/data/repository/process_functions_repository_iml.dart';
 import 'package:sharecipe/feature/new/domain/repository/ingredient_data_repository.dart';
+import 'package:sharecipe/feature/new/domain/repository/process_functions_repository.dart';
 import 'package:sharecipe/feature/new/domain/usecase/get_ingredient_usecase.dart';
+import 'package:sharecipe/feature/new/domain/usecase/get_process_functions_usecase.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
 
 GetIt getIt = GetIt.instance;
@@ -16,19 +20,24 @@ setUp() {
   //call remote api
   getIt.registerSingleton<HomeRemoteAPI>(HomeRemoteAPI());
   getIt.registerSingleton<IngredientListAPI>(IngredientListAPI());
+  getIt.registerSingleton<ProcessFunctionsAPI>(ProcessFunctionsAPI());
 
   //repository
   getIt.registerSingleton<HomeDataRepository>(
       HomeDataRepositoryImplementation(getIt()));
   getIt.registerSingleton<IngredientDataRepository>(
       IngredientDataRepositoryImp(getIt()));
+  getIt.registerSingleton<ProcessFunctionRepository>(
+      ProcessFunctionsRepositoryIml(getIt()));
 
   //use case
   getIt.registerSingleton<GetHomeDataUseCase>(GetHomeDataUseCase(getIt()));
   getIt
       .registerSingleton<GetIngredientsUseCase>(GetIngredientsUseCase(getIt()));
+  getIt.registerSingleton<GetProcessFunctionsUseCase>(
+      GetProcessFunctionsUseCase(getIt()));
 
   //bloc
   getIt.registerSingleton<HomeBlocBloc>(HomeBlocBloc(getIt()));
-  getIt.registerSingleton<NewBlocBloc>(NewBlocBloc(getIt()));
+  getIt.registerSingleton<NewBlocBloc>(NewBlocBloc(getIt(), getIt()));
 }
