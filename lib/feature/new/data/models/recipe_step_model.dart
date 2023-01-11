@@ -40,7 +40,7 @@ class RecipeStepModel extends RecipeStepEntity {
 
   factory RecipeStepModel.createTemp(RecipeStepParams params) {
     return RecipeStepModel(
-        id: -1,
+        id: params.stepNumber,
         stepNumber: params.stepNumber,
         title: params.title,
         description: params.description,
