@@ -7,7 +7,7 @@ class StepProcessEntity extends Equatable {
   final IngredientEntity ingredient;
   final ProcessFunctionEntity function;
   final int duration;
-  final double amount;
+  final int amount;
 
   const StepProcessEntity(
       {required this.id,

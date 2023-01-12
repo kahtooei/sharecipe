@@ -85,6 +85,8 @@ class _StepsRecipePageState extends State<StepsRecipePage> {
                         width: 200,
                         child: ElevatedButton(
                             onPressed: () {
+                              BlocProvider.of<NewBlocBloc>(context)
+                                  .add(emptyCurrentProcessList());
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

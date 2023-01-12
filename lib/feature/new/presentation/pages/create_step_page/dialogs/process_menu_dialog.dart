@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sharecipe/core/utils/constants.dart';
-import 'package:sharecipe/feature/new/presentation/pages/create_step_page/add_process_dialog.dart';
+import 'package:sharecipe/feature/new/presentation/pages/create_step_page/dialogs/add_process_dialog.dart';
 
 class MenuDialog {
   getDialog(BuildContext context) {
+    ProcessDialog process = ProcessDialog(context);
     showDialog(
       context: context,
       builder: (dialogContext) {
@@ -40,8 +41,10 @@ class MenuDialog {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15))),
                       ),
-                      onPressed: () =>
-                          ProcessDialog().IngredientFunctionDialog(context),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        process.ingredientFunctionDialog();
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
@@ -75,8 +78,7 @@ class MenuDialog {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15))),
                       ),
-                      onPressed: () =>
-                          ProcessDialog().LastStepFunctionDialog(context),
+                      onPressed: () => process.lastStepFunctionDialog(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
@@ -110,7 +112,7 @@ class MenuDialog {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15))),
                       ),
-                      onPressed: () => ProcessDialog().FunctionDialog(context),
+                      onPressed: () => process.functionDialog(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
@@ -144,8 +146,7 @@ class MenuDialog {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15))),
                       ),
-                      onPressed: () =>
-                          ProcessDialog().CustomFunctionDialog(context),
+                      onPressed: () => process.customFunctionDialog(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [

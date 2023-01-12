@@ -5,7 +5,7 @@ class StepProcessParams {
   final IngredientEntity ingredient;
   final ProcessFunctionEntity function;
   final int duration;
-  final double amount;
+  final int amount;
   StepProcessParams(
       {required this.ingredient,
       required this.function,

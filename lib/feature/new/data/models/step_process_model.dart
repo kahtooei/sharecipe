@@ -8,7 +8,7 @@ class StepProcessModel extends StepProcessEntity {
   final IngredientEntity ingredient;
   final ProcessFunctionEntity function;
   final int duration;
-  final double amount;
+  final int amount;
   const StepProcessModel(
       {required this.id,
       required this.ingredient,

@@ -4,8 +4,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/utils/constants.dart';
+import 'package:sharecipe/feature/new/domain/entities/step_process_entity.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
-import 'package:sharecipe/feature/new/presentation/pages/create_step_page/process_menu_dialog.dart';
+import 'package:sharecipe/feature/new/presentation/pages/create_step_page/dialogs/add_process_dialog.dart';
+import 'package:sharecipe/feature/new/presentation/pages/create_step_page/dialogs/process_menu_dialog.dart';
+import 'package:sharecipe/feature/new/presentation/pages/create_step_page/process_list_item.dart';
 
 class CreateStepPage extends StatelessWidget {
   const CreateStepPage({super.key});
@@ -229,7 +232,9 @@ class CreateStepPage extends StatelessWidget {
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10)))),
-                    onPressed: () => MenuDialog().getDialog(context),
+                    // onPressed: () => MenuDialog().getDialog(context),
+                    onPressed: () =>
+                        ProcessDialog(context).ingredientFunctionDialog(),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -257,7 +262,7 @@ class CreateStepPage extends StatelessWidget {
                   height: 300,
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  child: getProcess(),
+                  child: getProcess(state.currentStepProcessList),
                 )
               ],
             ),
@@ -267,11 +272,11 @@ class CreateStepPage extends StatelessWidget {
     );
   }
 
-  Widget getProcess() {
+  Widget getProcess(List<StepProcessEntity> processList) {
     return ListView.builder(
-      itemCount: 5,
+      itemCount: processList.length,
       itemBuilder: (context, index) {
-        return Text("Process-$index");
+        return ProcessListItem(process: processList[index]);
       },
     );
   }

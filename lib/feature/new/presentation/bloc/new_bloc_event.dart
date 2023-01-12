@@ -64,3 +64,10 @@ class reorderStepEvent extends NewBlocEvent {
   final bool isUp;
   reorderStepEvent(this.step, this.isUp);
 }
+
+class addCurrentStepProcessEvent extends NewBlocEvent {
+  final StepProcessEntity process;
+  addCurrentStepProcessEvent(this.process);
+}
+
+class emptyCurrentProcessList extends NewBlocEvent {}

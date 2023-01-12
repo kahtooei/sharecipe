@@ -4,6 +4,7 @@ import 'package:sharecipe/core/resources/request_status.dart';
 import 'package:sharecipe/feature/new/domain/entities/ingredient_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/process_function_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
+import 'package:sharecipe/feature/new/domain/entities/step_process_entity.dart';
 import 'package:sharecipe/feature/new/domain/usecase/get_ingredient_usecase.dart';
 import 'package:sharecipe/feature/new/domain/usecase/get_process_functions_usecase.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_status.dart';
@@ -20,10 +21,11 @@ class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
             title: '',
             description: '',
             searchText: "",
-            selectedIngredients: [],
+            selectedIngredients: const [],
             ingredientStatus: LoadingIngredientListStatus(),
             functionsStatus: LoadingFunctionsStatus(),
-            steps: [])) {
+            steps: const [],
+            currentStepProcessList: const [])) {
     on<NewBlocEvent>((event, emit) async {
       switch (event.runtimeType) {
         case updateTitleEvent:
@@ -93,6 +95,15 @@ class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
           break;
         case reorderStepEvent:
           //add logics
+          break;
+        case addCurrentStepProcessEvent:
+          List<StepProcessEntity> currentProcess =
+              state.currentStepProcessList +
+                  [(event as addCurrentStepProcessEvent).process];
+          emit(state.copyWith(current_step_process_list: currentProcess));
+          break;
+        case emptyCurrentProcessList:
+          emit(state.copyWith(current_step_process_list: []));
           break;
       }
     });
