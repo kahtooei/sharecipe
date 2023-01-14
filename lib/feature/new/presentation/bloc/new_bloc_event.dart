@@ -70,4 +70,19 @@ class addCurrentStepProcessEvent extends NewBlocEvent {
   addCurrentStepProcessEvent(this.process);
 }
 
-class emptyCurrentProcessList extends NewBlocEvent {}
+class emptyCurrentStepData extends NewBlocEvent {}
+
+class updateCurrentTitleEvent extends NewBlocEvent {
+  final String title;
+  updateCurrentTitleEvent(this.title);
+}
+
+class updateCurrentDescriptionEvent extends NewBlocEvent {
+  final String description;
+  updateCurrentDescriptionEvent(this.description);
+}
+
+class updateCurrentMediaEvent extends NewBlocEvent {
+  final String media;
+  updateCurrentMediaEvent(this.media);
+}

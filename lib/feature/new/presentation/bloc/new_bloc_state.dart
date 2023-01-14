@@ -10,6 +10,9 @@ class NewBlocState extends Equatable {
   final NewBlocStatus functionsStatus;
   final List<RecipeStepEntity> steps;
   final List<StepProcessEntity> currentStepProcessList;
+  final String currentStepTitle;
+  final String currentStepDescription;
+  final String currentStepMedia;
   const NewBlocState(
       {required this.selectedImgPath,
       required this.title,
@@ -19,7 +22,10 @@ class NewBlocState extends Equatable {
       required this.ingredientStatus,
       required this.functionsStatus,
       required this.steps,
-      required this.currentStepProcessList});
+      required this.currentStepProcessList,
+      required this.currentStepTitle,
+      required this.currentStepDescription,
+      required this.currentStepMedia});
 
   NewBlocState copyWith(
       {String? newImgPath,
@@ -30,7 +36,10 @@ class NewBlocState extends Equatable {
       NewBlocStatus? ingredient_status,
       NewBlocStatus? function_status,
       List<RecipeStepEntity>? new_steps,
-      List<StepProcessEntity>? current_step_process_list}) {
+      List<StepProcessEntity>? current_step_process_list,
+      String? current_title,
+      String? current_description,
+      String? current_media}) {
     return NewBlocState(
         selectedImgPath: newImgPath ?? selectedImgPath,
         title: newTitle ?? title,
@@ -41,11 +50,13 @@ class NewBlocState extends Equatable {
         functionsStatus: function_status ?? functionsStatus,
         steps: new_steps ?? steps,
         currentStepProcessList:
-            current_step_process_list ?? currentStepProcessList);
+            current_step_process_list ?? currentStepProcessList,
+        currentStepTitle: current_title ?? currentStepTitle,
+        currentStepDescription: current_description ?? currentStepDescription,
+        currentStepMedia: current_media ?? currentStepMedia);
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         selectedImgPath,
         title,
@@ -55,6 +66,9 @@ class NewBlocState extends Equatable {
         searchText,
         functionsStatus,
         steps,
-        currentStepProcessList
+        currentStepProcessList,
+        currentStepTitle,
+        currentStepDescription,
+        currentStepMedia
       ];
 }

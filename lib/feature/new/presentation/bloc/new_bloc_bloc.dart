@@ -25,7 +25,10 @@ class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
             ingredientStatus: LoadingIngredientListStatus(),
             functionsStatus: LoadingFunctionsStatus(),
             steps: const [],
-            currentStepProcessList: const [])) {
+            currentStepProcessList: const [],
+            currentStepTitle: "",
+            currentStepDescription: "",
+            currentStepMedia: "")) {
     on<NewBlocEvent>((event, emit) async {
       switch (event.runtimeType) {
         case updateTitleEvent:
@@ -85,6 +88,9 @@ class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
           }
           break;
         case addNewStepEvent:
+          List<RecipeStepEntity> newSteps =
+              state.steps + [(event as addNewStepEvent).step];
+          emit(state.copyWith(new_steps: newSteps));
           //add logics
           break;
         case removeStepEvent:
@@ -102,8 +108,28 @@ class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
                   [(event as addCurrentStepProcessEvent).process];
           emit(state.copyWith(current_step_process_list: currentProcess));
           break;
-        case emptyCurrentProcessList:
-          emit(state.copyWith(current_step_process_list: []));
+        case emptyCurrentStepData:
+          emit(state.copyWith(
+              current_step_process_list: [],
+              current_title: "",
+              current_description: "",
+              current_media: ""));
+          break;
+        case updateCurrentTitleEvent:
+          emit(state.copyWith(
+            current_title: (event as updateCurrentTitleEvent).title,
+          ));
+          break;
+        case updateCurrentDescriptionEvent:
+          emit(state.copyWith(
+            current_description:
+                (event as updateCurrentDescriptionEvent).description,
+          ));
+          break;
+        case updateCurrentMediaEvent:
+          emit(state.copyWith(
+            current_media: (event as updateCurrentMediaEvent).media,
+          ));
           break;
       }
     });

@@ -8,6 +8,7 @@ import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_status.dart';
 import 'package:sharecipe/feature/new/presentation/pages/create_step_page/create_step_page.dart';
+import 'package:sharecipe/feature/new/presentation/pages/steps_page/steps_list_item.dart';
 
 class StepsRecipePage extends StatefulWidget {
   const StepsRecipePage({super.key});
@@ -28,7 +29,17 @@ class _StepsRecipePageState extends State<StepsRecipePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Constants.MAIN_COLOR,
-        title: Text("Create Recipe Steps"),
+        title: const Text("Create Recipe Steps"),
+        actions: [
+          BlocBuilder<NewBlocBloc, NewBlocState>(
+            builder: (context, state) => Visibility(
+                visible: state.steps.isNotEmpty,
+                child: IconButton(
+                  icon: const Icon(Icons.check),
+                  onPressed: () {},
+                )),
+          )
+        ],
       ),
       body: BlocBuilder<NewBlocBloc, NewBlocState>(
         builder: (context, state) {
@@ -39,43 +50,48 @@ class _StepsRecipePageState extends State<StepsRecipePage> {
               return const ErrorView();
             case CompleteFunctionsStatus:
               return SizedBox(
-                width: double.infinity,
-                height: double.infinity,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     Positioned(
                         top: 5,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Visibility(
-                            visible: state.steps.isNotEmpty,
-                            replacement: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 100),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Icon(
-                                      Icons.no_food_sharp,
-                                      color: Colors.grey,
-                                      size: 35,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      "Empty Steps ...",
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 25),
-                                    )
-                                  ],
+                        child: SafeArea(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height -
+                                kToolbarHeight -
+                                20,
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Visibility(
+                              visible: state.steps.isNotEmpty,
+                              replacement: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 100),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Icon(
+                                        Icons.no_food_sharp,
+                                        color: Colors.grey,
+                                        size: 35,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "Empty Steps ...",
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 25),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
+                              child: getStepsListView(state.steps),
                             ),
-                            child: getStepsListView(state.steps),
                           ),
                         )),
                     Positioned(
@@ -86,7 +102,7 @@ class _StepsRecipePageState extends State<StepsRecipePage> {
                         child: ElevatedButton(
                             onPressed: () {
                               BlocProvider.of<NewBlocBloc>(context)
-                                  .add(emptyCurrentProcessList());
+                                  .add(emptyCurrentStepData());
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -131,7 +147,7 @@ class _StepsRecipePageState extends State<StepsRecipePage> {
     return ListView.builder(
       itemCount: steps.length,
       itemBuilder: (context, index) {
-        return Text("Index : $index");
+        return StepListItem(step: steps[index]);
       },
     );
   }

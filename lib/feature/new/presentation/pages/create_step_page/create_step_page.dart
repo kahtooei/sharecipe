@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sharecipe/core/params/recipe_step_params.dart';
 import 'package:sharecipe/core/utils/constants.dart';
+import 'package:sharecipe/feature/new/data/models/recipe_step_model.dart';
+import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/step_process_entity.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
 import 'package:sharecipe/feature/new/presentation/pages/create_step_page/dialogs/add_process_dialog.dart';
-import 'package:sharecipe/feature/new/presentation/pages/create_step_page/dialogs/process_menu_dialog.dart';
 import 'package:sharecipe/feature/new/presentation/pages/create_step_page/process_list_item.dart';
 
 class CreateStepPage extends StatelessWidget {
@@ -22,6 +24,31 @@ class CreateStepPage extends StatelessWidget {
           builder: (context, state) =>
               Text("Create Step ${(state.steps.length) + 1}"),
         ),
+        actions: [
+          BlocBuilder<NewBlocBloc, NewBlocState>(
+            builder: (context, state) => Visibility(
+                visible: state.currentStepTitle.isNotEmpty,
+                replacement: const Icon(Icons.not_interested),
+                child: IconButton(
+                  onPressed: () {
+                    int sumDuration =
+                        getSumDuration(state.currentStepProcessList);
+                    RecipeStepParams params = RecipeStepParams(
+                        stepNumber: state.steps.length + 1,
+                        title: state.currentStepTitle,
+                        description: state.currentStepDescription,
+                        mediaPath: state.currentStepMedia,
+                        processList: state.currentStepProcessList,
+                        duration: sumDuration);
+                    RecipeStepEntity step = RecipeStepModel.createTemp(params);
+                    BlocProvider.of<NewBlocBloc>(context)
+                        .add(addNewStepEvent(step));
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.check),
+                )),
+          )
+        ],
       ),
       body: BlocBuilder<NewBlocBloc, NewBlocState>(
         builder: (context, state) => Container(
@@ -75,8 +102,8 @@ class CreateStepPage extends StatelessWidget {
                   child: TextField(
                     textAlignVertical: TextAlignVertical.center,
                     onChanged: (txt) {
-                      // BlocProvider.of<NewBlocBloc>(context)
-                      //     .add(updateTitleEvent(txt));
+                      BlocProvider.of<NewBlocBloc>(context)
+                          .add(updateCurrentTitleEvent(txt));
                     },
                     decoration: const InputDecoration(
                       hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
@@ -115,8 +142,8 @@ class CreateStepPage extends StatelessWidget {
                   child: TextField(
                     maxLines: 4,
                     onChanged: (txt) {
-                      // BlocProvider.of<NewBlocBloc>(context)
-                      //     .add(updateDescriptionEvent(txt));
+                      BlocProvider.of<NewBlocBloc>(context)
+                          .add(updateCurrentDescriptionEvent(txt));
                     },
                     decoration: const InputDecoration(
                       hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
@@ -164,21 +191,21 @@ class CreateStepPage extends StatelessWidget {
                       onPressed: () async {
                         var result = await FilePicker.platform.pickFiles(
                           type: FileType.custom,
-                          allowedExtensions: ['jpg', 'png', 'jpeg', 'mp4'],
+                          allowedExtensions: ['jpg', 'png', 'jpeg'],
                         );
                         if (result != null) {
                           String path = result.files.single.path!;
-                          // BlocProvider.of<NewBlocBloc>(context)
-                          //     .add(updateSelectedImgEvent(path));
+                          BlocProvider.of<NewBlocBloc>(context)
+                              .add(updateCurrentMediaEvent(path));
                         }
                       },
                       child: Center(
                         child: Visibility(
-                          visible: state.selectedImgPath == '',
+                          visible: state.currentStepMedia == '',
                           replacement: ClipRRect(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(15)),
-                            child: Image.file(File(state.selectedImgPath)),
+                            child: Image.file(File(state.currentStepMedia)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -223,7 +250,7 @@ class CreateStepPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 40,
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -241,7 +268,7 @@ class CreateStepPage extends StatelessWidget {
                         Icon(
                           Icons.add,
                           color: Colors.white,
-                          size: 30,
+                          size: 25,
                         ),
                         SizedBox(
                           width: 10,
@@ -251,7 +278,7 @@ class CreateStepPage extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                              fontSize: 15),
                         )
                       ],
                     ),
@@ -279,5 +306,13 @@ class CreateStepPage extends StatelessWidget {
         return ProcessListItem(process: processList[index]);
       },
     );
+  }
+
+  int getSumDuration(List<StepProcessEntity> processList) {
+    int sumDuration = 0;
+    for (StepProcessEntity process in processList) {
+      sumDuration += process.duration;
+    }
+    return sumDuration;
   }
 }

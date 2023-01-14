@@ -12,7 +12,7 @@ class StepListItem extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 150,
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
@@ -22,13 +22,34 @@ class StepListItem extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(15)))),
         child: Row(
           children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                height: 30,
+                width: 30,
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                margin: const EdgeInsets.only(top: 15),
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Constants.MAIN_COLOR),
+                child: Center(
+                  child: Text(
+                    "${step.stepNumber}",
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 2),
               // height: 150,
-              width: MediaQuery.of(context).size.width / 3,
+              width: MediaQuery.of(context).size.width / 3.5,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: Image.file(File(step.mediaLink)),
+                child: step.mediaLink.isNotEmpty
+                    ? Image.file(File(step.mediaLink))
+                    : Image.asset("assets/Images/no-photo.png"),
               ),
             ),
             Expanded(
@@ -36,6 +57,7 @@ class StepListItem extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       step.title,
@@ -46,7 +68,7 @@ class StepListItem extends StatelessWidget {
                       maxLines: 1,
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     Text(
                       getDuration(step.duration),
@@ -57,7 +79,7 @@ class StepListItem extends StatelessWidget {
                       maxLines: 1,
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     Text(
                       step.description,
