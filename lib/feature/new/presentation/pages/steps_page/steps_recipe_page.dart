@@ -8,6 +8,7 @@ import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_status.dart';
 import 'package:sharecipe/feature/new/presentation/pages/create_step_page/create_step_page.dart';
+import 'package:sharecipe/feature/new/presentation/pages/final_page/final_page.dart';
 import 'package:sharecipe/feature/new/presentation/pages/steps_page/steps_list_item.dart';
 
 class StepsRecipePage extends StatefulWidget {
@@ -36,7 +37,13 @@ class _StepsRecipePageState extends State<StepsRecipePage> {
                 visible: state.steps.isNotEmpty,
                 child: IconButton(
                   icon: const Icon(Icons.check),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FinalNewRecipePage(),
+                        ));
+                  },
                 )),
           )
         ],

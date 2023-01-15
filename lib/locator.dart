@@ -6,12 +6,16 @@ import 'package:sharecipe/feature/home/domain/usecase/get_home_data_usecase.dart
 import 'package:sharecipe/feature/home/presentation/bloc/home_bloc_bloc.dart';
 import 'package:sharecipe/feature/new/data/data_source/remote/ingredient_list_remote.dart';
 import 'package:sharecipe/feature/new/data/data_source/remote/process_functions_list_remote.dart';
+import 'package:sharecipe/feature/new/data/data_source/remote/save_new_recipe_remote.dart';
 import 'package:sharecipe/feature/new/data/repository/ingredient_data_repository_iml.dart';
 import 'package:sharecipe/feature/new/data/repository/process_functions_repository_iml.dart';
+import 'package:sharecipe/feature/new/data/repository/save_new_recipe_repository_iml.dart';
 import 'package:sharecipe/feature/new/domain/repository/ingredient_data_repository.dart';
 import 'package:sharecipe/feature/new/domain/repository/process_functions_repository.dart';
+import 'package:sharecipe/feature/new/domain/repository/save_new_recipe_repository.dart';
 import 'package:sharecipe/feature/new/domain/usecase/get_ingredient_usecase.dart';
 import 'package:sharecipe/feature/new/domain/usecase/get_process_functions_usecase.dart';
+import 'package:sharecipe/feature/new/domain/usecase/save_new_recipe_usecase.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
 
 GetIt getIt = GetIt.instance;
@@ -21,6 +25,7 @@ setUp() {
   getIt.registerSingleton<HomeRemoteAPI>(HomeRemoteAPI());
   getIt.registerSingleton<IngredientListAPI>(IngredientListAPI());
   getIt.registerSingleton<ProcessFunctionsAPI>(ProcessFunctionsAPI());
+  getIt.registerSingleton<SaveNewRecipeAPI>(SaveNewRecipeAPI());
 
   //repository
   getIt.registerSingleton<HomeDataRepository>(
@@ -29,6 +34,8 @@ setUp() {
       IngredientDataRepositoryImp(getIt()));
   getIt.registerSingleton<ProcessFunctionRepository>(
       ProcessFunctionsRepositoryIml(getIt()));
+  getIt.registerSingleton<SaveNewRecipeRepository>(
+      SaveNewRecipeRepositoryImplementation(getIt()));
 
   //use case
   getIt.registerSingleton<GetHomeDataUseCase>(GetHomeDataUseCase(getIt()));
@@ -36,8 +43,9 @@ setUp() {
       .registerSingleton<GetIngredientsUseCase>(GetIngredientsUseCase(getIt()));
   getIt.registerSingleton<GetProcessFunctionsUseCase>(
       GetProcessFunctionsUseCase(getIt()));
+  getIt.registerSingleton<SaveNewRecipeUseCase>(SaveNewRecipeUseCase(getIt()));
 
   //bloc
   getIt.registerSingleton<HomeBlocBloc>(HomeBlocBloc(getIt()));
-  getIt.registerSingleton<NewBlocBloc>(NewBlocBloc(getIt(), getIt()));
+  getIt.registerSingleton<NewBlocBloc>(NewBlocBloc(getIt(), getIt(), getIt()));
 }

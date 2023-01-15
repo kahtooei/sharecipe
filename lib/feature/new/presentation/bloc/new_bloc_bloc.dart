@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:sharecipe/core/domain/entities/recipe_details.dart';
 import 'package:sharecipe/core/resources/request_status.dart';
 import 'package:sharecipe/feature/new/domain/entities/ingredient_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/process_function_entity.dart';
@@ -7,6 +8,7 @@ import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/step_process_entity.dart';
 import 'package:sharecipe/feature/new/domain/usecase/get_ingredient_usecase.dart';
 import 'package:sharecipe/feature/new/domain/usecase/get_process_functions_usecase.dart';
+import 'package:sharecipe/feature/new/domain/usecase/save_new_recipe_usecase.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_status.dart';
 
 part 'new_bloc_event.dart';
@@ -15,7 +17,8 @@ part 'new_bloc_state.dart';
 class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
   GetIngredientsUseCase getIngredients;
   GetProcessFunctionsUseCase getProcessFunctions;
-  NewBlocBloc(this.getIngredients, this.getProcessFunctions)
+  SaveNewRecipeUseCase saveRecipe;
+  NewBlocBloc(this.getIngredients, this.getProcessFunctions, this.saveRecipe)
       : super(NewBlocState(
             selectedImgPath: '',
             title: '',
@@ -28,7 +31,8 @@ class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
             currentStepProcessList: const [],
             currentStepTitle: "",
             currentStepDescription: "",
-            currentStepMedia: "")) {
+            currentStepMedia: "",
+            saveStatus: InitSaveRecipeStatus())) {
     on<NewBlocEvent>((event, emit) async {
       switch (event.runtimeType) {
         case updateTitleEvent:
@@ -130,6 +134,20 @@ class NewBlocBloc extends Bloc<NewBlocEvent, NewBlocState> {
           emit(state.copyWith(
             current_media: (event as updateCurrentMediaEvent).media,
           ));
+          break;
+        case saveRecipeEvent:
+          emit(state.copyWith(
+            save_status: LoadingSaveRecipeStatus(),
+          ));
+          RequestStatus requestStatus =
+              await saveRecipe((event as saveRecipeEvent).recipe);
+          if (requestStatus is SuccessRequest) {
+            emit(state.copyWith(save_status: CompleteSaveRecipeStatus()));
+          } else {
+            emit(state.copyWith(
+                save_status: ErrorSaveRecipeStatus((requestStatus.error!))));
+          }
+
           break;
       }
     });

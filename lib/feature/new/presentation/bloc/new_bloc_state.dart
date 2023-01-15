@@ -13,6 +13,7 @@ class NewBlocState extends Equatable {
   final String currentStepTitle;
   final String currentStepDescription;
   final String currentStepMedia;
+  final NewBlocStatus saveStatus;
   const NewBlocState(
       {required this.selectedImgPath,
       required this.title,
@@ -25,7 +26,8 @@ class NewBlocState extends Equatable {
       required this.currentStepProcessList,
       required this.currentStepTitle,
       required this.currentStepDescription,
-      required this.currentStepMedia});
+      required this.currentStepMedia,
+      required this.saveStatus});
 
   NewBlocState copyWith(
       {String? newImgPath,
@@ -39,7 +41,8 @@ class NewBlocState extends Equatable {
       List<StepProcessEntity>? current_step_process_list,
       String? current_title,
       String? current_description,
-      String? current_media}) {
+      String? current_media,
+      NewBlocStatus? save_status}) {
     return NewBlocState(
         selectedImgPath: newImgPath ?? selectedImgPath,
         title: newTitle ?? title,
@@ -53,7 +56,8 @@ class NewBlocState extends Equatable {
             current_step_process_list ?? currentStepProcessList,
         currentStepTitle: current_title ?? currentStepTitle,
         currentStepDescription: current_description ?? currentStepDescription,
-        currentStepMedia: current_media ?? currentStepMedia);
+        currentStepMedia: current_media ?? currentStepMedia,
+        saveStatus: save_status ?? saveStatus);
   }
 
   @override
@@ -69,6 +73,7 @@ class NewBlocState extends Equatable {
         currentStepProcessList,
         currentStepTitle,
         currentStepDescription,
-        currentStepMedia
+        currentStepMedia,
+        saveStatus
       ];
 }

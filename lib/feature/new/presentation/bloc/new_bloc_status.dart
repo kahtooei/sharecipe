@@ -31,3 +31,14 @@ class ErrorFunctionsStatus extends NewBlocStatus {
   final String error;
   ErrorFunctionsStatus(this.error);
 }
+
+class InitSaveRecipeStatus extends NewBlocStatus {}
+
+class LoadingSaveRecipeStatus extends NewBlocStatus {}
+
+class ErrorSaveRecipeStatus extends NewBlocStatus {
+  final String error;
+  ErrorSaveRecipeStatus(this.error);
+}
+
+class CompleteSaveRecipeStatus extends NewBlocStatus {}

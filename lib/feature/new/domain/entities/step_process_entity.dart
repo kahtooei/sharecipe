@@ -18,4 +18,16 @@ class StepProcessEntity extends Equatable {
 
   @override
   List<Object?> get props => [id, ingredient, function, amount, duration];
+
+  String toJson() {
+    return """ 
+    {
+      "id": $id,
+      "ingredient": ${ingredient.id},
+      "function": ${function.id},
+      "amount": $amount,
+      "duration": $duration,
+    }
+     """;
+  }
 }

@@ -21,4 +21,22 @@ class RecipeStepEntity extends Equatable {
   @override
   List<Object?> get props =>
       [id, title, description, mediaLink, processList, duration, stepNumber];
+
+  String toJson() {
+    String processJson = "";
+    for (StepProcessEntity process in processList) {
+      processJson += "${process.toJson()},";
+    }
+    return """ 
+    {
+    "id": $id ,
+    "stepNumber": $stepNumber ,
+    "title":"$title",
+    "description":"$description",
+    "mediaLink":"$mediaLink",
+    "processList":[$processJson],
+    "duration": $duration
+    }
+    """;
+  }
 }

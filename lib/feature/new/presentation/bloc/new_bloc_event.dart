@@ -86,3 +86,8 @@ class updateCurrentMediaEvent extends NewBlocEvent {
   final String media;
   updateCurrentMediaEvent(this.media);
 }
+
+class saveRecipeEvent extends NewBlocEvent {
+  final RecipeDetailsEntity recipe;
+  saveRecipeEvent(this.recipe);
+}
