@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/utils/constants.dart';
-import 'package:sharecipe/feature/home/presentation/widgets/error_view.dart';
-import 'package:sharecipe/feature/home/presentation/widgets/loading_view.dart';
+import 'package:sharecipe/core/widgets/error_view.dart';
+import 'package:sharecipe/core/widgets/loading_view.dart';
+import 'package:sharecipe/core/widgets/steps/steps_listview_widget.dart';
 import 'package:sharecipe/feature/new/domain/entities/process_function_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
@@ -97,7 +98,10 @@ class _StepsRecipePageState extends State<StepsRecipePage> {
                                   ),
                                 ),
                               ),
-                              child: getStepsListView(state.steps),
+                              child: StepsListViewWidget(
+                                steps: state.steps,
+                                isTemp: true,
+                              ),
                             ),
                           ),
                         )),
@@ -147,15 +151,6 @@ class _StepsRecipePageState extends State<StepsRecipePage> {
           }
         },
       ),
-    );
-  }
-
-  Widget getStepsListView(List<RecipeStepEntity> steps) {
-    return ListView.builder(
-      itemCount: steps.length,
-      itemBuilder: (context, index) {
-        return StepListItem(step: steps[index]);
-      },
     );
   }
 }

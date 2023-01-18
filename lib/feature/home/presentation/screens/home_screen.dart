@@ -7,9 +7,9 @@ import 'package:sharecipe/core/utils/constants.dart';
 import 'package:sharecipe/feature/home/domain/entities/recipe_entity.dart';
 import 'package:sharecipe/feature/home/presentation/bloc/home_bloc_bloc.dart';
 import 'package:sharecipe/feature/home/presentation/bloc/home_bloc_status.dart';
-import 'package:sharecipe/feature/home/presentation/widgets/error_view.dart';
+import 'package:sharecipe/core/widgets/error_view.dart';
 import 'package:sharecipe/feature/home/presentation/widgets/home_appBar.dart';
-import 'package:sharecipe/feature/home/presentation/widgets/loading_view.dart';
+import 'package:sharecipe/core/widgets/loading_view.dart';
 import 'package:sharecipe/feature/home/presentation/widgets/recipe_list_item.dart';
 
 class HomeScreen extends StatefulWidget {

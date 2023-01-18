@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/utils/constants.dart';
@@ -8,8 +7,12 @@ import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
 class IngredientListItem extends StatelessWidget {
   final IngredientEntity ingredient;
   final bool isSelected;
+  final bool isActive;
   const IngredientListItem(
-      {super.key, required this.ingredient, this.isSelected = false});
+      {super.key,
+      required this.ingredient,
+      this.isSelected = false,
+      this.isActive = true});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +21,18 @@ class IngredientListItem extends StatelessWidget {
       width: size,
       height: size,
       child: GestureDetector(
-        onTap: () {
-          if (isSelected) {
-            BlocProvider.of<NewBlocBloc>(context)
-                .add(removeFromSelectedIngredientEvent(ingredient: ingredient));
-          } else {
-            BlocProvider.of<NewBlocBloc>(context)
-                .add(addToSelectedIngredientEvent(ingredient: ingredient));
-          }
-        },
+        onTap: !isActive
+            ? null
+            : () {
+                if (isSelected) {
+                  BlocProvider.of<NewBlocBloc>(context).add(
+                      removeFromSelectedIngredientEvent(
+                          ingredient: ingredient));
+                } else {
+                  BlocProvider.of<NewBlocBloc>(context).add(
+                      addToSelectedIngredientEvent(ingredient: ingredient));
+                }
+              },
         child: Stack(
           alignment: Alignment.center,
           children: [

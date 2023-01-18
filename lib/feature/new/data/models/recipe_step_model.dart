@@ -1,4 +1,5 @@
 import 'package:sharecipe/core/params/recipe_step_params.dart';
+import 'package:sharecipe/feature/new/data/models/step_process_model.dart';
 import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/step_process_entity.dart';
 
@@ -28,13 +29,17 @@ class RecipeStepModel extends RecipeStepEntity {
             duration: duration);
 
   factory RecipeStepModel.fromJson(Map json) {
+    List<StepProcessEntity> processList = [];
+    for (Map process in json['processList']) {
+      processList.add(StepProcessModel.fromJson(process));
+    }
     return RecipeStepModel(
         id: json['id'],
         stepNumber: json['stepNumber'],
         title: json['title'],
         description: json['description'],
         mediaLink: json['mediaLink'],
-        processList: json['processList'],
+        processList: processList,
         duration: json['duration']);
   }
 

@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:sharecipe/core/utils/constants.dart';
 import 'package:sharecipe/feature/home/domain/entities/recipe_entity.dart';
+import 'package:sharecipe/feature/home/presentation/pages/recipe_details/recip_details_page.dart';
 
 class RecipeListItem extends StatelessWidget {
   final RecipeEntity recipe;
@@ -21,7 +20,14 @@ class RecipeListItem extends StatelessWidget {
             foregroundColor: Constants.MAIN_COLOR,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15)))),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeDetailsPage(
+                    recipeID: recipe.id!, recipeTitle: recipe.title!),
+              ));
+        },
         child: Row(
           children: [
             Container(

@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/params/category_params.dart';
@@ -7,7 +6,7 @@ import 'package:sharecipe/feature/new/domain/entities/ingredient_entity.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_status.dart';
 import 'package:sharecipe/feature/new/presentation/widgets/ingredient_badge.dart';
-import 'package:sharecipe/feature/new/presentation/widgets/ingredient_list_item.dart';
+import 'package:sharecipe/core/widgets/list_item/ingredient_list_item.dart';
 
 class AddIngredientsPage extends StatefulWidget {
   final CategoryParams category;

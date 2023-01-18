@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/utils/constants.dart';
 import 'package:sharecipe/core/widgets/main_screen.dart';
@@ -34,4 +35,9 @@ void main() async {
             focusColor: Constants.MAIN_COLOR),
         home: MainScreen(),
       )));
+
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    systemNavigationBarColor: Constants.MAIN_COLOR, // navigation bar color
+    statusBarColor: Constants.MAIN_COLOR, // status bar color
+  ));
 }

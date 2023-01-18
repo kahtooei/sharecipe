@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:sharecipe/core/domain/entities/recipe_details.dart';
 import 'package:sharecipe/feature/home/domain/entities/recipe_entity.dart';
 
 abstract class HomeBlocStatus extends Equatable {}
@@ -35,4 +36,26 @@ class HomeCompletedStatus extends HomeBlocStatus {
   @override
   // TODO: implement props
   List<Object?> get props => [recipes];
+}
+
+class LoadingRecipeDetailsStatus extends HomeBlocStatus {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class ErrorRecipeDetailsStatus extends HomeBlocStatus {
+  final String error;
+  ErrorRecipeDetailsStatus(this.error);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class CompleteRecipeDetailsStatus extends HomeBlocStatus {
+  final RecipeDetailsEntity recipe;
+  CompleteRecipeDetailsStatus(this.recipe);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 }

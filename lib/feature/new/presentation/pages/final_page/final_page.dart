@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sharecipe/core/domain/entities/recipe_details.dart';
 import 'package:sharecipe/core/utils/constants.dart';
-import 'package:sharecipe/feature/new/domain/entities/recipe_step_entity.dart';
+import 'package:sharecipe/core/widgets/steps/steps_listview_widget.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
-import 'package:sharecipe/feature/new/presentation/pages/steps_page/steps_list_item.dart';
 
 class FinalNewRecipePage extends StatelessWidget {
   const FinalNewRecipePage({super.key});
@@ -27,7 +27,8 @@ class FinalNewRecipePage extends StatelessWidget {
                         title: state.title,
                         description: state.description,
                         cover: state.selectedImgPath,
-                        steps: state.steps);
+                        steps: state.steps,
+                        ingredients: state.selectedIngredients);
                     BlocProvider.of<NewBlocBloc>(context).saveRecipe(recipe);
                   },
                   icon: const Icon(Icons.check));
@@ -135,21 +136,17 @@ class FinalNewRecipePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 300, child: getStepsListView(state.steps))
+                SizedBox(
+                    height: 300,
+                    child: StepsListViewWidget(
+                      steps: state.steps,
+                      isTemp: true,
+                    ))
               ],
             ),
           );
         },
       )),
-    );
-  }
-
-  Widget getStepsListView(List<RecipeStepEntity> steps) {
-    return ListView.builder(
-      itemCount: steps.length,
-      itemBuilder: (context, index) {
-        return StepListItem(step: steps[index]);
-      },
     );
   }
 }

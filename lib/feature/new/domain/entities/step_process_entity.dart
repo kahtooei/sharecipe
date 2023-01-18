@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:sharecipe/feature/new/data/models/ingredient_model.dart';
+import 'package:sharecipe/feature/new/data/models/process_function_model.dart';
 import 'package:sharecipe/feature/new/domain/entities/ingredient_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/process_function_entity.dart';
 
@@ -29,5 +31,17 @@ class StepProcessEntity extends Equatable {
       "duration": $duration,
     }
      """;
+  }
+
+  factory StepProcessEntity.fromJson(Map json) {
+    IngredientEntity ingredient = IngredientModel.fromJson(json['ingredient']);
+    ProcessFunctionEntity function =
+        ProcessFunctionModel.fromJson(json['function']);
+    return StepProcessEntity(
+        id: json['id'],
+        ingredient: ingredient,
+        function: function,
+        amount: json['amount'],
+        duration: json['duration']);
   }
 }

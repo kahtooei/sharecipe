@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharecipe/core/utils/constants.dart';
 import 'package:sharecipe/feature/new/domain/entities/ingredient_entity.dart';
 import 'package:sharecipe/feature/new/presentation/bloc/new_bloc_bloc.dart';
-import 'package:sharecipe/feature/new/presentation/widgets/ingredient_list_item.dart';
+import 'package:sharecipe/core/widgets/list_item/ingredient_list_item.dart';
 
 class SelectedIngredients extends StatelessWidget {
   const SelectedIngredients({super.key});

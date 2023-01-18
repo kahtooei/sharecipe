@@ -13,3 +13,8 @@ class HomeMoreLoadEvent extends HomeBlocEvent {
   final int lastRecipeID;
   HomeMoreLoadEvent(this.lastRecipeID);
 }
+
+class GetRecipeDetailsEvent extends HomeBlocEvent {
+  final int recipeID;
+  GetRecipeDetailsEvent(this.recipeID);
+}

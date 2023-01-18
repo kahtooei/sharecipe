@@ -1,4 +1,6 @@
 import 'package:sharecipe/core/params/step_process_params.dart';
+import 'package:sharecipe/feature/new/data/models/ingredient_model.dart';
+import 'package:sharecipe/feature/new/data/models/process_function_model.dart';
 import 'package:sharecipe/feature/new/domain/entities/ingredient_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/process_function_entity.dart';
 import 'package:sharecipe/feature/new/domain/entities/step_process_entity.dart';
@@ -25,8 +27,8 @@ class StepProcessModel extends StepProcessEntity {
   factory StepProcessModel.fromJson(Map json) {
     return StepProcessModel(
         id: json['id'],
-        ingredient: json['ingredient'],
-        function: json['function'],
+        ingredient: IngredientModel.fromJson(json['ingredient']),
+        function: ProcessFunctionModel.fromJson(json['function']),
         amount: json['amount'],
         duration: json['duration']);
   }
